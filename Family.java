@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Family {
     private Human father;
@@ -139,6 +140,8 @@ public class Family {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        Random random = new Random();
+        int hashCode = random.nextInt(1000);
+        return hashCode;
     }
 }

@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Pet {
     private String species;
@@ -82,6 +83,7 @@ public class Pet {
     public String toString() {
         return this.species + "{nickname=" + this.nickname + ", age=" + this.age + ", trickLevel=" + this.trickLevel + ", habits=" + Arrays.toString(this.habits) + "}";
     }
+
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
@@ -89,6 +91,8 @@ public class Pet {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        Random random = new Random();
+        int hashCode = random.nextInt(1000);
+        return hashCode;
     }
 }

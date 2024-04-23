@@ -75,13 +75,13 @@ public class Human {
         this.family = family;
     }
 
-   /* public void greetPet() {
-        System.out.println("Hello , " + this.pet.getNickname());
+   public void greetPet() {
+        System.out.println("Hello , " + this.family.getPet().getNickname());
     }
 
     public void describePet() {
-        String trickLevel = this.pet.getTrickLevel() >= 50 ? "very sly" : "almost not sly";
-        System.out.println("I have an " + this.pet.getSpecies() + " is " + this.pet.getAge() + " years old, he is " + trickLevel);
+        String trickLevel = this.family.getPet().getTrickLevel() >= 50 ? "very sly" : "almost not sly";
+        System.out.println("I have an " + this.family.getPet().getSpecies() + " is " + this.family.getPet().getAge() + " years old, he is " + trickLevel);
     }
 
     public boolean feedPet(boolean isItTimeForFeeding) {
@@ -91,12 +91,12 @@ public class Human {
         } else {
             Random rand = new Random();
             int randomNumber = rand.nextInt(100) + 1;
-            feedHappened = this.pet.getTrickLevel() > randomNumber ? true : false;
+            feedHappened = this.family.getPet().getTrickLevel() > randomNumber ? true : false;
         }
         if(feedHappened==true){
-            System.out.println("Hm... I will feed Jack's "+this.pet.getNickname());
+            System.out.println("Hm... I will feed Jack's "+this.family.getPet().getNickname());
         }else{
-            System.out.println("I think "+this.pet.getNickname()+" is not hungry");
+            System.out.println("I think "+this.family.getPet().getNickname()+" is not hungry");
         }
         return feedHappened;
     }
@@ -107,9 +107,11 @@ public class Human {
     }
     @Override
     public int hashCode() {
-        return super.hashCode();
+        Random random = new Random();
+        int hashCode = random.nextInt(1000);
+        return hashCode;
     }
-*/
+
    @Override
    public boolean equals(Object obj) {
        return ((Human)obj).name==this.name && ((Human)obj).surname==this.surname && ((Human)obj).family==this.family;
