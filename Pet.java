@@ -4,18 +4,24 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Pet {
-    private String species;
+    private Species species;
     private String nickname;
     private int age;
     private byte trickLevel;
     private String[] habits;
+    static{
+        System.out.println(Pet.class.getName()+" class is loaded");
+    }
+    {
+        System.out.println(Pet.class.getName()+" object is created");
+    }
 
-    public Pet(String species, String nickname) {
+    public Pet(Species species, String nickname) {
         this.species = species;
         this.nickname = nickname;
     }
 
-    public Pet(String species, String nickname, int age, byte trickLevel, String[] habits) {
+    public Pet(Species species, String nickname, int age, byte trickLevel, String[] habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -27,7 +33,7 @@ public class Pet {
 
     }
 
-    public String getSpecies() {
+    public Species getSpecies() {
         return species;
     }
 
@@ -47,7 +53,7 @@ public class Pet {
         return habits;
     }
 
-    public void setSpecies(String species) {
+    public void setSpecies(Species species) {
         this.species = species;
     }
 
@@ -95,4 +101,17 @@ public class Pet {
         int hashCode = random.nextInt(1000);
         return hashCode;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("a pet object removed");
+    }
 }
+enum Species{
+    Dog,
+    Cat,
+    Rabbit,
+    Turtle,
+    Rat
+}
+

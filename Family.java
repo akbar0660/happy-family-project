@@ -8,6 +8,12 @@ public class Family {
     private Human mother;
     private Human[] children;
     private Pet pet;
+    static{
+        System.out.println(Family.class.getName()+" class is loaded");
+    }
+    {
+        System.out.println(Family.class.getName()+" object is created");
+    }
 
     public Family(Human father, Human mother) {
         this.father = father;
@@ -64,22 +70,27 @@ public class Family {
         }
     }
     public boolean deleteChild(Human child){
-        for(int i=0;i<children.length;i++){
+        int i;
+        for(i=0;i<children.length;i++){
             if(child.equals(children[i])){
                 children[i]=null;
                 break;
             }
         }
-        int k = 0;
-        Human[] childrenNew = new Human[children.length - 1];
-        for (int i = 0; i < children.length; i++) {
-            if (children[i] != null) {
-                childrenNew[i] = children[i];
-                k++;
+        if(i== children.length){
+            return false;
+        }else {
+            int k = 0;
+            Human[] childrenNew = new Human[children.length - 1];
+            for (int d = 0; d < children.length; d++) {
+                if (children[d] != null) {
+                    childrenNew[k] = children[d];
+                    k++;
+                }
             }
+            this.children = childrenNew;
+            return true;
         }
-        this.children = childrenNew;
-        return true;
     }
 
     public void addChildren(Human child) {
@@ -143,5 +154,10 @@ public class Family {
         Random random = new Random();
         int hashCode = random.nextInt(1000);
         return hashCode;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("a family object is removed");
     }
 }

@@ -10,6 +10,12 @@ public class Human {
     private byte iq;
     private String[][] schedule;
     private Family family;
+    static{
+        System.out.println(Human.class.getName()+" class is loaded");
+    }
+    {
+        System.out.println(Human.class.getName()+" object is created");
+    }
 
     public Human(String name, String surname, int year) {
         this.name = name;
@@ -103,7 +109,8 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Human{name=" + this.name + ", surname=" + this.surname + ", year=" + this.year + ", iq=" + this.iq+" schedule= "+Arrays.toString(this.schedule)+"}";
+        String[] newSchedule = Arrays.stream(this.schedule).flatMap(Arrays::stream).toArray(String[]::new);
+        return "Human{name=" + this.name + ", surname=" + this.surname + ", year=" + this.year + ", iq=" + this.iq+" schedule= "+Arrays.toString(newSchedule)+"}";
     }
     @Override
     public int hashCode() {
@@ -116,4 +123,18 @@ public class Human {
    public boolean equals(Object obj) {
        return ((Human)obj).name==this.name && ((Human)obj).surname==this.surname && ((Human)obj).family==this.family;
    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("a human object is removed");
+    }
+}
+enum DaysOfWeek{
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
 }
