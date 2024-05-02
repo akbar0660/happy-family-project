@@ -8,11 +8,13 @@ public class Family {
     private Human mother;
     private Human[] children;
     private Pet pet;
-    static{
-        System.out.println(Family.class.getName()+" class is loaded");
+
+    static {
+        System.out.println(Family.class.getName() + " class is loaded");
     }
+
     {
-        System.out.println(Family.class.getName()+" object is created");
+        System.out.println(Family.class.getName() + " object is created");
     }
 
     public Family(Human father, Human mother) {
@@ -53,38 +55,15 @@ public class Family {
     }
 
     public boolean deleteChild(int index) {
-        if(index>children.length-1){
+        if (this.children == null || index > children.length - 1) {
             return false;
-        }else {
+        } else {
             int k = 0;
             Human[] childrenNew = new Human[children.length - 1];
             children[index] = null;
             for (int i = 0; i < children.length; i++) {
                 if (children[i] != null) {
-                    childrenNew[i] = children[i];
-                    k++;
-                }
-            }
-            this.children = childrenNew;
-            return true;
-        }
-    }
-    public boolean deleteChild(Human child){
-        int i;
-        for(i=0;i<children.length;i++){
-            if(child.equals(children[i])){
-                children[i]=null;
-                break;
-            }
-        }
-        if(i== children.length){
-            return false;
-        }else {
-            int k = 0;
-            Human[] childrenNew = new Human[children.length - 1];
-            for (int d = 0; d < children.length; d++) {
-                if (children[d] != null) {
-                    childrenNew[k] = children[d];
+                    childrenNew[k] = children[i];
                     k++;
                 }
             }
@@ -93,29 +72,58 @@ public class Family {
         }
     }
 
+    public boolean deleteChild(Human child) {
+        if (this.children == null) {
+            return false;
+        } else {
+            int i;
+            for (i = 0; i < children.length; i++) {
+                if (child.equals(children[i])) {
+                    children[i] = null;
+                    break;
+                }
+            }
+            if (i == children.length) {
+                return false;
+            } else {
+                int k = 0;
+                Human[] childrenNew = new Human[children.length - 1];
+                for (int d = 0; d < children.length; d++) {
+                    if (children[d] != null) {
+                        childrenNew[k] = children[d];
+                        k++;
+                    }
+                }
+                this.children = childrenNew;
+                return true;
+            }
+        }
+    }
+
     public void addChildren(Human child) {
-        if(children==null){
+        if (children == null) {
             Human[] children0 = new Human[1];
             children0[0] = child;
             children = children0;
-        }else{
-            Human[] childrenNew = new Human[children.length+1];
-            for(int i = 0;i<children.length;i++){
-                childrenNew[i]=children[i];
+        } else {
+            Human[] childrenNew = new Human[children.length + 1];
+            for (int i = 0; i < children.length; i++) {
+                childrenNew[i] = children[i];
             }
-            childrenNew[childrenNew.length-1]=child;
+            childrenNew[childrenNew.length - 1] = child;
             this.children = childrenNew;
             System.out.println(Arrays.toString(this.children));
         }
     }
-    public int countFamily(){
+
+    public int countFamily() {
         int count;
-        if(pet!=null){
+        if (pet != null) {
             count = 3;
-        }else{
+        } else {
             count = 2;
         }
-        if(children!=null) {
+        if (children != null) {
             for (int i = 0; i < this.children.length; i++) {
                 if (children[i] != null) {
                     count++;
@@ -128,24 +136,23 @@ public class Family {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if(this.children!=null){
+        if (this.children != null) {
             for (int i = 0; i < this.children.length; i++) {
                 sb = sb.append(children[i].getName()).append(", ");
             }
-            if(pet!=null) {
+            if (pet != null) {
                 return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName() + " children: " + sb + " pet: " + this.pet.getNickname();
-            }else{
+            } else {
                 return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName() + " children: " + sb;
             }
-        }
-        else{
-            return "Family consists of "+this.countFamily()+" members.Father: " + this.father.getName() + " mother: " + this.mother.getName();
+        } else {
+            return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName();
         }
     }
 
     @Override
     public boolean equals(Object obj) {
-        return ((Family)obj).father.equals(this.father) && ((Family)obj).mother.equals(this.mother);
+        return ((Family) obj).father.equals(this.father) && ((Family) obj).mother.equals(this.mother);
 
     }
 

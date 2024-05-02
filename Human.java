@@ -129,12 +129,3 @@ public class Human {
         System.out.println("a human object is removed");
     }
 }
-enum DaysOfWeek{
-    Monday,
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday,
-    Sunday
-}

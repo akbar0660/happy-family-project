@@ -3,25 +3,33 @@ package org.example;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Pet {
+public abstract class Pet {
     private Species species;
     private String nickname;
     private int age;
     private byte trickLevel;
     private String[] habits;
-    static{
-        System.out.println(Pet.class.getName()+" class is loaded");
+
+    static {
+        System.out.println(Pet.class.getName() + " class is loaded");
     }
+
     {
-        System.out.println(Pet.class.getName()+" object is created");
+        System.out.println(Pet.class.getName() + " object is created");
     }
 
     public Pet(Species species, String nickname) {
+        if (species == null){
+            this.species = Species.Unknown;
+        }else
         this.species = species;
         this.nickname = nickname;
     }
 
     public Pet(Species species, String nickname, int age, byte trickLevel, String[] habits) {
+        if (species == null){
+            this.species = Species.Unknown;
+        }else
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -77,9 +85,7 @@ public class Pet {
         System.out.println("i'm eating");
     }
 
-    public void respond() {
-        System.out.println("hello, owner.I'am " + this.nickname + " .I miss you");
-    }
+    public abstract void respond();
 
     public void foul() {
         System.out.println("i need to cover it up");
@@ -107,11 +113,5 @@ public class Pet {
         System.out.println("a pet object removed");
     }
 }
-enum Species{
-    Dog,
-    Cat,
-    Rabbit,
-    Turtle,
-    Rat
-}
+
 
