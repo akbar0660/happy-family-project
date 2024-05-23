@@ -1,20 +1,21 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Human {
     private String name;
     private String surname;
     private int year;
     private byte iq;
-    private String[][] schedule;
+    private HashMap<DaysOfWeek, String> schedule;
     private Family family;
-    static{
-        System.out.println(Human.class.getName()+" class is loaded");
+
+    static {
+        System.out.println(Human.class.getName() + " class is loaded");
     }
+
     {
-        System.out.println(Human.class.getName()+" object is created");
+        System.out.println(Human.class.getName() + " object is created");
     }
 
     public Human(String name, String surname, int year) {
@@ -22,7 +23,8 @@ public class Human {
         this.surname = surname;
         this.year = year;
     }
-    public Human(String name, String surname, int year, byte iq, String[][] schedule) {
+
+    public Human(String name, String surname, int year, byte iq, HashMap<DaysOfWeek, String> schedule) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -50,7 +52,7 @@ public class Human {
         return iq;
     }
 
-    public String[][] getSchedule() {
+    public Map<DaysOfWeek, String> getSchedule() {
         return schedule;
     }
 
@@ -73,7 +75,8 @@ public class Human {
     public void setIq(byte iq) {
         this.iq = iq;
     }
-    public void setSchedule(String[][] schedule) {
+
+    public void setSchedule(HashMap<DaysOfWeek, String> schedule) {
         this.schedule = schedule;
     }
 
@@ -81,37 +84,42 @@ public class Human {
         this.family = family;
     }
 
-   public void greetPet() {
-        System.out.println("Hello , " + this.family.getPet().getNickname());
+    public void greetPet() {
+        System.out.println("Hello , " + ((Pet) (this.family.getPet().toArray()[0])).getNickname());
     }
 
     public void describePet() {
-        String trickLevel = this.family.getPet().getTrickLevel() >= 50 ? "very sly" : "almost not sly";
-        System.out.println("I have an " + this.family.getPet().getSpecies() + " is " + this.family.getPet().getAge() + " years old, he is " + trickLevel);
+        String trickLevel = ((Pet) (this.family.getPet().toArray()[0])).getTrickLevel() >= 50 ? "very sly" : "almost not sly";
+        System.out.println("I have an " + ((Pet) (this.family.getPet().toArray()[0])).getSpecies() + " is " + ((Pet) this.family.getPet().toArray()[0]).getAge() + " years old, he is " + trickLevel);
     }
 
     public boolean feedPet(boolean isItTimeForFeeding) {
         boolean feedHappened = false;
-        if (isItTimeForFeeding = true) {
+        if (isItTimeForFeeding) {
             feedHappened = true;
         } else {
             Random rand = new Random();
             int randomNumber = rand.nextInt(100) + 1;
-            feedHappened = this.family.getPet().getTrickLevel() > randomNumber ? true : false;
+            feedHappened = ((Pet) (this.family.getPet().toArray()[0])).getTrickLevel() > randomNumber ? true : false;
         }
-        if(feedHappened==true){
-            System.out.println("Hm... I will feed Jack's "+this.family.getPet().getNickname());
-        }else{
-            System.out.println("I think "+this.family.getPet().getNickname()+" is not hungry");
+        if (feedHappened) {
+            System.out.println("Hm... I will feed Jack's " + ((Pet) (this.family.getPet().toArray()[0])).getNickname());
+        } else {
+            System.out.println("I think " + ((Pet) (this.family.getPet().toArray()[0])).getNickname() + " is not hungry");
         }
         return feedHappened;
     }
 
     @Override
     public String toString() {
-        String[] newSchedule = Arrays.stream(this.schedule).flatMap(Arrays::stream).toArray(String[]::new);
-        return "Human{name=" + this.name + ", surname=" + this.surname + ", year=" + this.year + ", iq=" + this.iq+" schedule= "+Arrays.toString(newSchedule)+"}";
+        StringBuilder sb = new StringBuilder();
+        Set<DaysOfWeek> set = schedule.keySet();
+        for (DaysOfWeek day : set) {
+            sb = sb.append(day).append(" ").append(schedule.get(day)).append(" ");
+        }
+        return "Human{name=" + this.name + ", surname=" + this.surname + ", year=" + this.year + ", iq=" + this.iq + " schedule= " + sb + "}";
     }
+
     @Override
     public int hashCode() {
         Random random = new Random();
@@ -119,10 +127,10 @@ public class Human {
         return hashCode;
     }
 
-   @Override
-   public boolean equals(Object obj) {
-       return ((Human)obj).name==this.name && ((Human)obj).surname==this.surname && ((Human)obj).family==this.family;
-   }
+    @Override
+    public boolean equals(Object obj) {
+        return ((Human) obj).name == this.name && ((Human) obj).surname == this.surname && ((Human) obj).family == this.family;
+    }
 
     @Override
     protected void finalize() throws Throwable {

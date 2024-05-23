@@ -1,14 +1,17 @@
 package org.example;
 
-public class RoboCat extends Pet{
+import java.util.HashSet;
+
+public class RoboCat extends Pet {
     public RoboCat(Species species, String nickname) {
         super(species, nickname);
     }
 
-    public RoboCat(Species species, String nickname, int age, byte trickLevel, String[] habits) {
+    public RoboCat(Species species, String nickname, int age, byte trickLevel, HashSet<String> habits) {
         super(species, nickname, age, trickLevel, habits);
     }
-    public RoboCat(){
+
+    public RoboCat() {
 
     }
 

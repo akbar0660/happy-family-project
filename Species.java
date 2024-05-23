@@ -5,7 +5,7 @@ enum Species {
     DomesticCat(false, (short) 4, true),
     Fish(false, (short) 0, false),
     RoboCat(false, (short) 4, true),
-    Unknown(false,(short) 0,false);
+    Unknown(false, (short) 0, false);
     private boolean canFly;
     private short numberOfLegs;
     private boolean hasFur;

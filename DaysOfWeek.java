@@ -1,6 +1,6 @@
 package org.example;
 
-enum DaysOfWeek{
+enum DaysOfWeek {
     Monday,
     Tuesday,
     Wednesday,

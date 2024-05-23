@@ -1,19 +1,20 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Family {
     private Human father;
     private Human mother;
-    private Human[] children;
-    private Pet pet;
+    private List<Human> children;
+    private HashSet<Pet> pet;
 
     static {
         System.out.println(Family.class.getName() + " class is loaded");
     }
 
     {
+        children = new ArrayList<>();
+        pet = new HashSet<>();
         System.out.println(Family.class.getName() + " object is created");
     }
 
@@ -30,11 +31,11 @@ public class Family {
         return mother;
     }
 
-    public Human[] getChildren() {
+    public List<Human> getChildren() {
         return children;
     }
 
-    public Pet getPet() {
+    public Set<Pet> getPet() {
         return pet;
     }
 
@@ -46,114 +47,61 @@ public class Family {
         this.mother = mother;
     }
 
-    public void setChild(Human[] children) {
+    public void setChild(List<Human> children) {
         this.children = children;
     }
 
-    public void setPet(Pet pet) {
+    public void setPet(HashSet<Pet> pet) {
         this.pet = pet;
     }
 
     public boolean deleteChild(int index) {
-        if (this.children == null || index > children.length - 1) {
-            return false;
-        } else {
-            int k = 0;
-            Human[] childrenNew = new Human[children.length - 1];
-            children[index] = null;
-            for (int i = 0; i < children.length; i++) {
-                if (children[i] != null) {
-                    childrenNew[k] = children[i];
-                    k++;
-                }
-            }
-            this.children = childrenNew;
+        if (!children.isEmpty()) {
+            children.remove(index);
             return true;
         }
+        return false;
     }
 
     public boolean deleteChild(Human child) {
-        if (this.children == null) {
-            return false;
-        } else {
-            int i;
-            for (i = 0; i < children.length; i++) {
-                if (child.equals(children[i])) {
-                    children[i] = null;
-                    break;
-                }
-            }
-            if (i == children.length) {
-                return false;
-            } else {
-                int k = 0;
-                Human[] childrenNew = new Human[children.length - 1];
-                for (int d = 0; d < children.length; d++) {
-                    if (children[d] != null) {
-                        childrenNew[k] = children[d];
-                        k++;
-                    }
-                }
-                this.children = childrenNew;
-                return true;
-            }
-        }
+        return children.remove(child);
     }
 
     public void addChildren(Human child) {
-        if (children == null) {
-            Human[] children0 = new Human[1];
-            children0[0] = child;
-            children = children0;
-        } else {
-            Human[] childrenNew = new Human[children.length + 1];
-            for (int i = 0; i < children.length; i++) {
-                childrenNew[i] = children[i];
-            }
-            childrenNew[childrenNew.length - 1] = child;
-            this.children = childrenNew;
-            System.out.println(Arrays.toString(this.children));
+        if (children.contains(child)) {
+            return;
         }
+        children.add(child);
     }
 
     public int countFamily() {
-        int count;
-        if (pet != null) {
-            count = 3;
-        } else {
-            count = 2;
-        }
-        if (children != null) {
-            for (int i = 0; i < this.children.length; i++) {
-                if (children[i] != null) {
-                    count++;
-                }
-            }
-        }
-        return count;
+        return children.size() + pet.size() + 2;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if (this.children != null) {
-            for (int i = 0; i < this.children.length; i++) {
-                sb = sb.append(children[i].getName()).append(", ");
+        StringBuilder sb2 = new StringBuilder();
+        for (Pet pet : pet) {
+            sb2 = sb2.append(pet.getNickname()).append(" ");
+        }
+        if (!children.isEmpty()) {
+            for (int i = 0; i < this.children.size(); i++) {
+                sb = sb.append(children.get(i).getName()).append(", ");
             }
-            if (pet != null) {
-                return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName() + " children: " + sb + " pet: " + this.pet.getNickname();
+            if (!pet.isEmpty()) {
+                return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName() + " children: " + sb + " pet: " + sb2;
             } else {
-                return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName() + " children: " + sb;
+                return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName() + " children: " + sb + "no pet";
             }
         } else {
-            return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName();
+            return "Family consists of " + this.countFamily() + " members.Father: " + this.father.getName() + " mother: " + this.mother.getName() + " no children";
         }
     }
 
     @Override
     public boolean equals(Object obj) {
         return ((Family) obj).father.equals(this.father) && ((Family) obj).mother.equals(this.mother);
-
     }
 
     @Override

@@ -1,14 +1,16 @@
 package org.example;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public abstract class Pet {
     private Species species;
     private String nickname;
     private int age;
     private byte trickLevel;
-    private String[] habits;
+    private HashSet<String> habits;
 
     static {
         System.out.println(Pet.class.getName() + " class is loaded");
@@ -19,18 +21,16 @@ public abstract class Pet {
     }
 
     public Pet(Species species, String nickname) {
-        if (species == null){
+        if (species == null) {
             this.species = Species.Unknown;
-        }else
-        this.species = species;
+        } else this.species = species;
         this.nickname = nickname;
     }
 
-    public Pet(Species species, String nickname, int age, byte trickLevel, String[] habits) {
-        if (species == null){
+    public Pet(Species species, String nickname, int age, byte trickLevel, HashSet<String> habits) {
+        if (species == null) {
             this.species = Species.Unknown;
-        }else
-        this.species = species;
+        } else this.species = species;
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
@@ -57,7 +57,7 @@ public abstract class Pet {
         return trickLevel;
     }
 
-    public String[] getHabits() {
+    public Set<String> getHabits() {
         return habits;
     }
 
@@ -77,7 +77,7 @@ public abstract class Pet {
         this.trickLevel = trickLevel;
     }
 
-    public void setHabits(String[] habits) {
+    public void setHabits(HashSet<String> habits) {
         this.habits = habits;
     }
 
@@ -93,7 +93,11 @@ public abstract class Pet {
 
     @Override
     public String toString() {
-        return this.species + "{nickname=" + this.nickname + ", age=" + this.age + ", trickLevel=" + this.trickLevel + ", habits=" + Arrays.toString(this.habits) + "}";
+        StringBuilder sb = new StringBuilder();
+        for (String s : habits) {
+            sb = sb.append(s).append(" ");
+        }
+        return this.species + "{nickname=" + this.nickname + ", age=" + this.age + ", trickLevel=" + this.trickLevel + ", habits=" + sb + "}";
     }
 
     @Override
