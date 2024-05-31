@@ -62,6 +62,9 @@ public class Family {
         }
         return false;
     }
+    public void deleteChildren(List<Human> children){
+        children.removeAll(children);
+    }
 
     public boolean deleteChild(Human child) {
         return children.remove(child);
@@ -72,6 +75,10 @@ public class Family {
             return;
         }
         children.add(child);
+    }
+
+    public void addPet(Pet pet){
+        this.pet.add(pet);
     }
 
     public int countFamily() {
